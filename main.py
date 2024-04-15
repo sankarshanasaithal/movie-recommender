@@ -10,7 +10,7 @@ dataset = pickle.load(open('movie_list.pkl', 'rb'))
 # Recommend 5 similar movies to the entered movie
 def recommend(movie):
     # Find the index of the movie in the dataset
-    index = next((i for i, d in enumerate(dataset) if d['Name'].lower() == movie.strip().lower()), None)
+    index = next((i for i, d in enumerate(dataset) if d['Name'].lower() == movie), None)
     if index is None:
         return [], []  # when movie is not found
     distances = list(enumerate(similarity[index]))
@@ -37,9 +37,30 @@ def index():
             search_performed = False
         for data in dataset:
             if data['Name'].lower() == movie_name.strip().lower():
-                names, posters = recommend(movie_name)
+                names, posters = recommend(movie_name.strip().lower())
                 break
     return render_template('index.html', name=movie_name.title(), movie_names=names, image_links=posters, search_performed=search_performed)
+
+# Renders the movie suggestions to the frontend as the user types
+@app.route('/suggest', methods=['POST'])
+def suggest():
+    if request.method == 'POST':
+        input_text = request.form.get('input_text', '').lower()
+        suggestions = []
+        count = 0
+        for data in dataset:
+            if count >= 5: 
+                break
+            if data['Name'].lower().startswith(input_text):
+                suggestions.append(data['Name'])
+                count += 1
+        suggestions.sort()
+        if len(suggestions)!=0:
+            return '\n'.join(suggestions)
+        else:
+            return ''
+    else:
+        return 'Method Not Allowed', 405 
 
 if __name__ == '__main__':
     app.run(debug=True)

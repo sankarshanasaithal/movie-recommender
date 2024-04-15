@@ -27,6 +27,24 @@ input[type="text"] {
     border-radius: 5px;
     font-size: 1em;
 }
+#suggestions{
+    width: 300px;
+    padding: 10px;  
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: left !important;
+}
+#suggestions > div{
+    border-bottom: 1px solid #ccc; /* Add a border to the bottom of each inner div */
+    padding: 10px; /* Adjust padding for spacing */
+    /* margin-bottom: 5px; Optional: Adjust margin for additional spacing*/
+}
+#suggestions > div:hover{
+    background-color: rgba(255, 255, 220, 0.8);
+    cursor: pointer;
+}
 input[type="submit"] {
     background-color: #4CAF50;
     color: white;
