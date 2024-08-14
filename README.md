@@ -28,8 +28,3 @@ pip install pickle flask numpy pandas sklearn nltk re
     ```
    A webpage opens on your localhost
 5. Type in a movie name (refer to the dataset) and enter. The recommendations are visible if the entered movie exists in the dataset.
-
-
-## NOTE
-
-In case the script and styling is not working on the page, include the codes within <script> and <style> tags before running the development server
